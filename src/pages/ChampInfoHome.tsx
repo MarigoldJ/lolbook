@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+import ChampList from "../features/ChampList";
 import Searcher from "../features/Searcher";
 
 export default function ChampInfoHome() {
@@ -8,6 +9,7 @@ export default function ChampInfoHome() {
         Search Champions
       </Typography>
       <Searcher />
+      <ChampList />
     </>
   );
 }

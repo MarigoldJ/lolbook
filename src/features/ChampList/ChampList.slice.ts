@@ -22,7 +22,7 @@ export interface ChampListState {
 
 const initialState: ChampListState = {
   champs: [],
-  version: "0.0.0",
+  version: "",
   language: "ko_KR",
   status: "idle",
 };

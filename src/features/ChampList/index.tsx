@@ -1,3 +1,14 @@
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
@@ -10,29 +21,64 @@ export default function ChampList() {
   const version = useAppSelector((state: RootState) => state.champList.version);
   const dispatch = useAppDispatch();
 
-  const handleUpdateBtn: React.MouseEventHandler<HTMLButtonElement> = (
-    event
-  ) => {
-    dispatch(fetchChampListAsync({ version: inputVersion, language: "ko_KR" }));
-  };
-
-  // 임시 버전 입력기능
+  // 선택된 LOL Version.
   const [inputVersion, setInputVersion] = React.useState<string>("");
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleVersion = (event: SelectChangeEvent<string>) => {
+    console.log("Load LOL Version:", event.target.value);
     setInputVersion(event.target.value);
+    dispatch(
+      fetchChampListAsync({ version: event.target.value, language: "ko_KR" })
+    );
   };
 
   return (
-    <div>
-      <p>
-        <input value={inputVersion} onChange={handleChange} />
-        <button onClick={handleUpdateBtn}>update</button>
-      </p>
+    <Box display="flex" flexDirection="column" alignItems="center">
+      <Box about="패치버전 선택영역" display="flex" justifyContent="center">
+        <FormControl sx={{ m: 3, minWidth: 120 }} size="small">
+          <InputLabel id="lol-version">롤 패치버전</InputLabel>
+          <Select
+            labelId="lol-version"
+            value={inputVersion}
+            onChange={handleVersion}
+            variant="standard"
+          >
+            <MenuItem value={""}>None</MenuItem>
+            <MenuItem value={"12.13.1"}>12.13.1</MenuItem>
+            <MenuItem value={"13.1.1"}>13.1.1</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
 
-      <h3>{`LOL Version: ${version}`}</h3>
-      {champList.map((champ: ChampState) => (
-        <li key={`li_${champ.key}`}>{champ.name}</li>
-      ))}
-    </div>
+      <Grid
+        container
+        about="챔피언 리스트 영역"
+        spacing={0.2}
+        columns={{ xs: 3, sm: 5, md: 7 }}
+      >
+        {champList.map((champ: ChampState) => (
+          <Grid
+            item
+            key={`li_${champ.key}`}
+            xs={1}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+            about="챔피언박스"
+          >
+            <Button href={`/champion/${champ.id}`}>
+              <img
+                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.id}.png`}
+                alt={`square_${champ.id}`}
+                loading="lazy"
+                width="100%"
+              />
+            </Button>
+            <Typography>{champ.name}</Typography>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 }
