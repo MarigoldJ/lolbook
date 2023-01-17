@@ -22,10 +22,8 @@ export default function ChampList() {
   const dispatch = useAppDispatch();
 
   // 선택된 LOL Version.
-  const [inputVersion, setInputVersion] = React.useState<string>("");
   const handleVersion = (event: SelectChangeEvent<string>) => {
     console.log("Load LOL Version:", event.target.value);
-    setInputVersion(event.target.value);
     dispatch(
       fetchChampListAsync({ version: event.target.value, language: "ko_KR" })
     );
@@ -38,7 +36,7 @@ export default function ChampList() {
           <InputLabel id="lol-version">롤 패치버전</InputLabel>
           <Select
             labelId="lol-version"
-            value={inputVersion}
+            value={version}
             onChange={handleVersion}
             variant="standard"
           >
