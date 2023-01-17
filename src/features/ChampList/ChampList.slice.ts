@@ -5,7 +5,7 @@ const RIOT_BASE_URL = "https://ddragon.leagueoflegends.com/cdn";
 
 // state 정의
 export interface ChampState {
-  key: number;
+  key: string;
   id: string;
   name: string;
   title: string;
@@ -36,6 +36,7 @@ const preprocessData = (
   data: rawChampListData,
   lang: string
 ): ChampListState => {
+  // 이름 가나다 순으로 챔피언 리스트 정렬하기.
   const newList: Array<ChampState> = Object.values(data.data).sort(
     (a: any, b: any) => {
       if (a.name < b.name) {
@@ -67,6 +68,7 @@ export const fetchChampListAsync = createAsyncThunk(
       // raw data 전처리 후 적용
       return preprocessData(data, fetchArgs.language);
     } catch (error) {
+      // TODO: 에러 발생시 slice에서 rejected로 넘어가지지 않음.
       console.log({
         errorMessage: "Something wrong while fetch champion list data.",
       });
