@@ -1,12 +1,15 @@
-import ChampList from "../features/ChampList";
-import Searcher from "../features/Searcher";
+import { Button, Stack } from "@mui/material";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <h1>Home</h1>
-      <Searcher />
-      <ChampList />
-    </div>
+      <Stack direction="row" spacing={2}>
+        <Button variant="contained">밴픽하기</Button>
+        <Button variant="contained" href="/champion">
+          챔피언 정보 보기
+        </Button>
+      </Stack>
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { store } from "./app/store";
 import ChampInfo from "./pages/ChampInfo";
+import ChampInfoHome from "./pages/ChampInfoHome";
 import Layout from "./pages/components/Layout";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -18,7 +19,11 @@ root.render(
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="champion/:champId" element={<ChampInfo />} />
+            <Route path="champion">
+              <Route index element={<ChampInfoHome />} />
+              <Route path=":champId" element={<ChampInfo />} />
+            </Route>
+
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
