@@ -1,3 +1,4 @@
+import { Box, TextField } from "@mui/material";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
@@ -13,11 +14,15 @@ export default function Searcher() {
   };
 
   return (
-    <div>
-      <p>
-        <input value={searcher} onChange={handleChange} />
-        <button>Search</button>
-      </p>
-    </div>
+    <Box>
+      <TextField
+        id="searcher-input"
+        label="검색할 챔피언명"
+        variant="standard"
+        value={searcher}
+        onChange={handleChange}
+      />
+      <div>{searcher}</div>
+    </Box>
   );
 }
