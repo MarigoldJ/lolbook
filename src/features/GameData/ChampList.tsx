@@ -9,21 +9,23 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
-import { ChampState, fetchChampListAsync } from "./ChampList.slice";
+import { ChampState, fetchChampListAsync, setVersion } from "./GameData.slice";
 
 export default function ChampList() {
   const champList = useAppSelector(
-    (state: RootState) => state.champList.champs
+    (state: RootState) => state.gameData.champList
   );
-  const version = useAppSelector((state: RootState) => state.champList.version);
+  const verList = useAppSelector((state: RootState) => state.gameData.verList);
+  const version = useAppSelector(
+    (state: RootState) => state.gameData.current.version
+  );
   const dispatch = useAppDispatch();
 
-  // 선택된 LOL Version.
   const handleVersion = (event: SelectChangeEvent<string>) => {
-    console.log("Load LOL Version:", event.target.value);
+    console.log("Selected Version:", event.target.value);
+    dispatch(setVersion(event.target.value));
     dispatch(
       fetchChampListAsync({ version: event.target.value, language: "ko_KR" })
     );

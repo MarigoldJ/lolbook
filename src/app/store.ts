@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ChampListSlice from "../features/ChampList/ChampList.slice";
+import GameDataSlice from "../features/GameData/GameData.slice";
 import SearcherSlice from "../features/Searcher/Searcher.slice";
 
 // store 생성
 export const store = configureStore({
   reducer: {
     searcher: SearcherSlice,
-    champList: ChampListSlice,
+    gameData: GameDataSlice,
   },
 });
 
