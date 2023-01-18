@@ -9,9 +9,15 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
+import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
-import { ChampState, fetchChampListAsync, setVersion } from "./GameData.slice";
+import {
+  ChampState,
+  fetchChampListAsync,
+  fetchVerListAsync,
+  setVersion,
+} from "./GameData.slice";
 
 export default function ChampList() {
   const champList = useAppSelector(
@@ -22,6 +28,11 @@ export default function ChampList() {
     (state: RootState) => state.gameData.current.version
   );
   const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    dispatch(fetchVerListAsync());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleVersion = (event: SelectChangeEvent<string>) => {
     console.log("Selected Version:", event.target.value);
@@ -42,9 +53,11 @@ export default function ChampList() {
             onChange={handleVersion}
             variant="standard"
           >
-            <MenuItem value={""}>None</MenuItem>
-            <MenuItem value={"12.13.1"}>12.13.1</MenuItem>
-            <MenuItem value={"13.1.1"}>13.1.1</MenuItem>
+            {verList.map((version: string) => (
+              <MenuItem value={version} key={`ver-item-${version}`}>
+                {version}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>

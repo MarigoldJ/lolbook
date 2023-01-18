@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { handleRawChampList } from "./util";
 
-const RIOT_BASE_URL = "https://ddragon.leagueoflegends.com/cdn";
+const RIOT_BASE_URL = "https://ddragon.leagueoflegends.com";
 
 // state 정의
 export interface ChampState {
@@ -42,10 +42,8 @@ export const fetchChampListAsync = createAsyncThunk(
   async (fetchArgs: { version: string; language: string }) => {
     try {
       const data = await axios.get(
-        `${RIOT_BASE_URL}/${fetchArgs.version}/data/${fetchArgs.language}/champion.json`
+        `${RIOT_BASE_URL}/cdn/${fetchArgs.version}/data/${fetchArgs.language}/champion.json`
       );
-
-      // console.log("fetch/champ", data);
 
       // raw data 전처리 후 slice의 payload로 넘김.
       return handleRawChampList(data);
@@ -61,14 +59,12 @@ export const fetchChampListAsync = createAsyncThunk(
 
 export const fetchVerListAsync = createAsyncThunk(
   "gamedata/fetch/version",
-  async (fetchArgs: { version: string; language: string }) => {
+  async () => {
     try {
-      const data = await axios.get(
-        `${RIOT_BASE_URL}/${fetchArgs.version}/data/${fetchArgs.language}/champion.json`
-      );
+      const data = await axios.get(`${RIOT_BASE_URL}/api/versions.json`);
 
-      // raw data 전처리 후 slice의 payload로 넘김.
-      //   return handleRawChampList(data, fetchArgs.language);
+      // slice의 payload로 넘김.
+      return data.data;
     } catch (error) {
       // TODO: 에러 발생시 slice에서 rejected로 넘어가지지 않음.
       console.log({
@@ -123,6 +119,16 @@ export const gameDataSlice = createSlice({
       state.champList = action.payload as ChampState[];
     });
     builder.addCase(fetchChampListAsync.rejected, (state) => {
+      state.status = "rejected";
+    });
+    builder.addCase(fetchVerListAsync.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(fetchVerListAsync.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      state.verList = action.payload as string[];
+    });
+    builder.addCase(fetchVerListAsync.rejected, (state) => {
       state.status = "rejected";
     });
   },
