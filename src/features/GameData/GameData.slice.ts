@@ -45,6 +45,8 @@ export const fetchChampListAsync = createAsyncThunk(
         `${RIOT_BASE_URL}/cdn/${fetchArgs.version}/data/${fetchArgs.language}/champion.json`
       );
 
+      console.log("Loaded Version:", fetchArgs.version);
+
       // raw data 전처리 후 slice의 payload로 넘김.
       return handleRawChampList(data);
     } catch (error) {

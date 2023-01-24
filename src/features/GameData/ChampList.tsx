@@ -36,7 +36,6 @@ export default function ChampList() {
   }, []);
 
   const handleVersion = (event: SelectChangeEvent<string>) => {
-    console.log("Selected Version:", event.target.value);
     dispatch(setVersion(event.target.value));
     dispatch(
       fetchChampListAsync({ version: event.target.value, language: "ko_KR" })
