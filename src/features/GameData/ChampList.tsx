@@ -12,6 +12,7 @@ import {
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
+import { urlRouter } from "../../pages/routes";
 import {
   ChampState,
   fetchChampListAsync,
@@ -82,7 +83,7 @@ export default function ChampList() {
               }}
               about="챔피언박스"
             >
-              <Button href={`/champion/${champ.id}`}>
+              <Button href={urlRouter(`champion/${champ.id}`)}>
                 <img
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.id}.png`}
                   alt={`square_${champ.id}`}
