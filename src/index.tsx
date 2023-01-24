@@ -8,9 +8,7 @@ import ChampInfoHome from "./pages/ChampInfoHome";
 import Layout from "./pages/components/Layout";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-
-const BASE_NAME =
-  process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : "";
+import { BASE_NAME } from "./pages/routes";
 
 console.log("basename:", BASE_NAME);
 
