@@ -9,13 +9,18 @@ import Layout from "./pages/components/Layout";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 
+const BASE_NAME =
+  process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : "";
+
+console.log("basename:", BASE_NAME);
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename={BASE_NAME}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
