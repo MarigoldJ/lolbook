@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/lolbook/static/js/main.bd210083.js",
+    "index.html": "/lolbook/index.html",
+    "main.bd210083.js.map": "/lolbook/static/js/main.bd210083.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bd210083.js"
+  ]
+}
