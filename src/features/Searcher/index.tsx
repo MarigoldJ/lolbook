@@ -22,7 +22,6 @@ export default function Searcher() {
         value={searcher}
         onChange={handleChange}
       />
-      <div>{searcher}</div>
     </Box>
   );
 }

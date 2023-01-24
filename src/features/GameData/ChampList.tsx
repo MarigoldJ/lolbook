@@ -27,6 +27,7 @@ export default function ChampList() {
   const version = useAppSelector(
     (state: RootState) => state.gameData.current.version
   );
+  const searcher = useAppSelector((state: RootState) => state.searcher.text);
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -43,7 +44,7 @@ export default function ChampList() {
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
+    <Box display="flex" flexDirection="column" alignItems="center" width="100%">
       <Box about="패치버전 선택영역" display="flex" justifyContent="center">
         <FormControl sx={{ m: 3, minWidth: 120 }} size="small">
           <InputLabel id="lol-version">롤 패치버전</InputLabel>
@@ -68,29 +69,31 @@ export default function ChampList() {
         spacing={0.2}
         columns={{ xs: 3, sm: 5, md: 7 }}
       >
-        {champList.map((champ: ChampState) => (
-          <Grid
-            item
-            key={`li_${champ.key}`}
-            xs={1}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-            about="챔피언박스"
-          >
-            <Button href={`/champion/${champ.id}`}>
-              <img
-                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.id}.png`}
-                alt={`square_${champ.id}`}
-                loading="lazy"
-                width="100%"
-              />
-            </Button>
-            <Typography>{champ.name}</Typography>
-          </Grid>
-        ))}
+        {champList
+          .filter((champ: ChampState) => champ.name.startsWith(searcher))
+          .map((champ: ChampState) => (
+            <Grid
+              item
+              key={`li_${champ.key}`}
+              xs={1}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+              about="챔피언박스"
+            >
+              <Button href={`/champion/${champ.id}`}>
+                <img
+                  src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.id}.png`}
+                  alt={`square_${champ.id}`}
+                  loading="lazy"
+                  width="100%"
+                />
+              </Button>
+              <Typography>{champ.name}</Typography>
+            </Grid>
+          ))}
       </Grid>
     </Box>
   );
