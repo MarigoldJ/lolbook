@@ -1,13 +1,14 @@
 import { Box, Button, CssBaseline } from "@mui/material";
-import { Outlet } from "react-router-dom";
-import { urlRouter } from "../routes";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function Layout() {
+  const navigate = useNavigate();
+
   return (
     <>
       <CssBaseline />
       <Box width="100%">
-        <Button variant="contained" href={urlRouter("")}>
+        <Button variant="contained" onClick={() => navigate("/")}>
           Go to Home
         </Button>
       </Box>
