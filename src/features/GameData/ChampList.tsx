@@ -10,9 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
-import { urlRouter } from "../../pages/routes";
 import {
   ChampState,
   fetchChampListAsync,
@@ -30,6 +30,8 @@ export default function ChampList() {
   );
   const searcher = useAppSelector((state: RootState) => state.searcher.text);
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     dispatch(fetchVerListAsync());
@@ -83,7 +85,7 @@ export default function ChampList() {
               }}
               about="챔피언박스"
             >
-              <Button href={urlRouter(`champion/${champ.id}`)}>
+              <Button onClick={() => navigate(`/champion/${champ.id}`)}>
                 <img
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.id}.png`}
                   alt={`square_${champ.id}`}
