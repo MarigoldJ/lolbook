@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/lolbook/static/js/main.846b48fe.js",
+    "main.js": "/lolbook/static/js/main.2d92a145.js",
     "index.html": "/lolbook/index.html",
-    "main.846b48fe.js.map": "/lolbook/static/js/main.846b48fe.js.map"
+    "main.2d92a145.js.map": "/lolbook/static/js/main.2d92a145.js.map"
   },
   "entrypoints": [
-    "static/js/main.846b48fe.js"
+    "static/js/main.2d92a145.js"
   ]
 }
